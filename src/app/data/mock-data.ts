@@ -2,11 +2,41 @@ import type { Vacancy } from '../models/vacancy.model';
 import type { Resume } from '../models/resume.model';
 
 export const MOCK_VACANCIES: Vacancy[] = [
-  { id: '1', title: 'Frontend-разработчик (Angular)', company: 'ООО ТехСофт', tags: ['Angular', 'TypeScript', 'JavaScript'], salary: 'от 150 000 ₽' },
-  { id: '2', title: 'Backend-разработчик (Node.js)', company: 'Стартап Инновации', tags: ['Node.js', 'PostgreSQL', 'REST'], salary: 'от 180 000 ₽' },
-  { id: '3', title: 'Fullstack разработчик', company: 'Цифра', tags: ['Angular', 'Node.js', 'TypeScript'], salary: 'по договорённости' },
-  { id: '4', title: 'React-разработчик', company: 'ВебСтудио', tags: ['React', 'JavaScript', 'CSS'], salary: 'от 120 000 ₽' },
-  { id: '5', title: 'Java-разработчик', company: 'Банк Софт', tags: ['Java', 'Spring', 'SQL'], salary: 'от 200 000 ₽' },
+  {
+    id: '1',
+    title: 'Frontend-разработчик (Angular)',
+    company: 'ООО ТехСофт',
+    tags: ['Angular', 'TypeScript', 'JavaScript'],
+    salary: 'от 150 000 ₽',
+  },
+  {
+    id: '2',
+    title: 'Backend-разработчик (Node.js)',
+    company: 'Стартап Инновации',
+    tags: ['Node.js', 'PostgreSQL', 'REST'],
+    salary: 'от 180 000 ₽',
+  },
+  {
+    id: '3',
+    title: 'Fullstack разработчик',
+    company: 'Цифра',
+    tags: ['Angular', 'Node.js', 'TypeScript'],
+    salary: 'по договорённости',
+  },
+  {
+    id: '4',
+    title: 'React-разработчик',
+    company: 'ВебСтудио',
+    tags: ['React', 'JavaScript', 'CSS'],
+    salary: 'от 120 000 ₽',
+  },
+  {
+    id: '5',
+    title: 'Java-разработчик',
+    company: 'Банк Софт',
+    tags: ['Java', 'Spring', 'SQL'],
+    salary: 'от 200 000 ₽',
+  },
 ];
 
 const MOCK_MY_RESUMES: Resume[] = [

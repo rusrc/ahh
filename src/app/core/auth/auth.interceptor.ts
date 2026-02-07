@@ -15,8 +15,7 @@ const encodeToken = (payload: { role: LoginRole; email: string }): string => {
 };
 
 /**
- * Перехватывает POST /api/auth/login и возвращает захардкоженный JSON с токеном,
- * пока бэкенд не реализован.
+ * Mock for POST /api/auth/login that returns a token with role.
  */
 export const authMockInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next) => {
   const isLogin =
@@ -27,7 +26,7 @@ export const authMockInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>
     const body = req.body as { login?: string } | null;
     const login = body?.login?.trim()?.toLowerCase();
     const role: LoginRole | null =
-      login === 'specialist@mail.ru' ? 'specialist' : login === 'hr@mail.ru' ? 'hr' : null;
+      login === 'user@mail.ru' ? 'specialist' : login === 'hr@mail.ru' ? 'hr' : null;
 
     return of(
       new HttpResponse({

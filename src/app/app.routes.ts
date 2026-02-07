@@ -11,12 +11,13 @@ export const routes: Routes = [
     children: [
       { path: '', loadComponent: () => import('./features/vacancies/vacancies.component').then((m) => m.VacanciesComponent) },
       {
-        path: 'specialist',
+        path: 'my-cvs',
         canMatch: [roleGuard],
         data: { roles: ['specialist'] },
         loadComponent: () =>
-          import('./features/specialist/specialist.component').then((m) => m.SpecialistComponent),
+          import('./features/my-cvs/my-cvs.component').then((m) => m.MyCvsComponent),
       },
+      { path: 'specialist', redirectTo: 'my-cvs' },
       {
         path: 'specialists',
         canMatch: [roleGuard],
@@ -31,7 +32,20 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/my-vacancies/my-vacancies.component').then((m) => m.MyVacanciesComponent),
       },
-      { path: 'resume/:id', loadComponent: () => import('./features/resume-detail/resume-detail.component').then((m) => m.ResumeDetailComponent) },
+      {
+        path: 'resume/:id',
+        canMatch: [roleGuard],
+        data: { roles: ['hr'] },
+        loadComponent: () =>
+          import('./features/resume-detail/resume-detail.component').then((m) => m.ResumeDetailComponent),
+      },
+      {
+        path: 'resume-edit/:id',
+        canMatch: [roleGuard],
+        data: { roles: ['specialist'] },
+        loadComponent: () =>
+          import('./features/resume-edit/resume-edit.component').then((m) => m.ResumeEditComponent),
+      },
     ],
   },
   { path: '**', redirectTo: '' },

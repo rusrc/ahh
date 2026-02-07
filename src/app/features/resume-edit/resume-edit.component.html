@@ -1,0 +1,87 @@
+@let r = resume();
+@if (r; as res) {
+  <div class="resume-edit-page">
+    <a [routerLink]="backLink" class="back-link">← {{ backLabel }}</a>
+    <h1 class="page-title">Редактирование резюме</h1>
+
+    <section class="card section-card">
+      <h2 class="section-title">Основное</h2>
+      <label class="field">
+        <span>Название</span>
+        <input type="text" [(ngModel)]="res.title" />
+      </label>
+      <label class="field">
+        <span>ФИО</span>
+        <input type="text" [(ngModel)]="res.personalInfo.fullName" />
+      </label>
+      <label class="field">
+        <span>Город</span>
+        <input type="text" [(ngModel)]="res.personalInfo.city" />
+      </label>
+      <label class="field">
+        <span>Дата рождения</span>
+        <input type="date" [(ngModel)]="res.personalInfo.birthDate" />
+      </label>
+    </section>
+
+    <section class="card section-card">
+      <h2 class="section-title">Контакты</h2>
+      <label class="field">
+        <span>Email</span>
+        <input type="email" [(ngModel)]="res.contacts.email" />
+      </label>
+      <label class="field">
+        <span>Телефон</span>
+        <input type="tel" [(ngModel)]="res.contacts.phone" />
+      </label>
+      <label class="field">
+        <span>Telegram</span>
+        <input type="text" [(ngModel)]="res.contacts.telegram" />
+      </label>
+    </section>
+
+    <section class="section-card">
+      <div class="section-header">
+        <h2 class="section-title">Опыт работы</h2>
+        <button type="button" class="btn" (click)="addExperience()">Добавить</button>
+      </div>
+      <div class="experience-cards">
+        @for (exp of res.workExperience; track exp.id) {
+          <div class="card experience-card">
+            <label class="field">
+              <span>Компания</span>
+              <input type="text" [(ngModel)]="exp.company" />
+            </label>
+            <label class="field">
+              <span>Должность</span>
+              <input type="text" [(ngModel)]="exp.position" />
+            </label>
+            <label class="field">
+              <span>Период</span>
+              <input type="text" [(ngModel)]="exp.period" />
+            </label>
+            <label class="field">
+              <span>Описание</span>
+              <textarea rows="3" [(ngModel)]="exp.description"></textarea>
+            </label>
+            <button type="button" class="btn btn-danger" (click)="removeExperience(exp.id)">Удалить</button>
+          </div>
+        }
+      </div>
+    </section>
+
+    <div class="actions">
+      <button type="button" class="btn btn-primary" [disabled]="saving()" (click)="save()">
+        @if (saving()) { Сохранение... } @else { Сохранить }
+      </button>
+      @if (saved()) {
+        <span class="saved">Сохранено</span>
+      }
+    </div>
+  </div>
+} @else {
+  <div class="resume-edit-page">
+    <a [routerLink]="backLink" class="back-link">← {{ backLabel }}</a>
+    <p class="not-found">Резюме не найдено.</p>
+  </div>
+}

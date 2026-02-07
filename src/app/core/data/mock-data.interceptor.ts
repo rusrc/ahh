@@ -3,12 +3,12 @@ import { of } from 'rxjs';
 import { MOCK_VACANCIES, getAllResumes, getMyResumes, getResumeById } from '../../data/mock-data';
 
 /**
- * Мокаем API для страниц резюме и вакансий до появления реального бэкенда.
+ * Mock API for resumes and vacancies until backend is ready.
  */
 export const dataMockInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next) => {
-  if (req.method === 'GET') {
-    const url = req.url;
+  const url = req.url;
 
+  if (req.method === 'GET') {
     if (url.endsWith('/api/hr/vacancies') || url.includes('/api/hr/vacancies')) {
       return of(
         new HttpResponse({
@@ -27,11 +27,22 @@ export const dataMockInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>
       );
     }
 
-    if (url.endsWith('/api/resumes/my') || url.includes('/api/resumes/my')) {
+    if (/\/api\/resumes\/my(?:\?.*)?$/.test(url)) {
       return of(
         new HttpResponse({
           status: 200,
           body: getMyResumes(),
+        })
+      );
+    }
+
+    const myMatch = url.match(/\/api\/resumes\/my\/([^/?#]+)/);
+    if (myMatch) {
+      const resume = getResumeById(myMatch[1]);
+      return of(
+        new HttpResponse({
+          status: resume ? 200 : 404,
+          body: resume ?? null,
         })
       );
     }
@@ -47,11 +58,23 @@ export const dataMockInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>
       );
     }
 
-    if (url.endsWith('/api/resumes') || url.includes('/api/resumes')) {
+    if (/\/api\/resumes(?:\?.*)?$/.test(url)) {
       return of(
         new HttpResponse({
           status: 200,
           body: getAllResumes(),
+        })
+      );
+    }
+  }
+
+  if (req.method === 'PUT') {
+    const myMatch = url.match(/\/api\/resumes\/my\/([^/?#]+)/);
+    if (myMatch) {
+      return of(
+        new HttpResponse({
+          status: 200,
+          body: req.body ?? null,
         })
       );
     }

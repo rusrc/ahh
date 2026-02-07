@@ -4,7 +4,7 @@
     <nav class="nav">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Вакансии</a>
       @if (auth.isRole('specialist')) {
-        <a routerLink="/specialist" routerLinkActive="active">Специалисты</a>
+        <a routerLink="/my-cvs" routerLinkActive="active">Мои резюме</a>
       }
       @if (auth.isRole('hr')) {
         <a routerLink="/specialists" routerLinkActive="active">Специалисты</a>

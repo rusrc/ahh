@@ -6,7 +6,7 @@ import type { Resume } from '../../models/resume.model';
 const RESUMES_API = '/api/resumes/my';
 
 @Injectable({ providedIn: 'root' })
-export class ProfileService {
+export class MyCvsService {
   constructor(private http: HttpClient) {}
 
   getMyResumes(): Observable<Resume[]> {
