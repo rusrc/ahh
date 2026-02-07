@@ -1,6 +1,6 @@
 import { HttpInterceptorFn, HttpRequest, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
-import { MOCK_VACANCIES, getAllResumes, getMyResumes, getResumeById } from '../../data/mock-data';
+import { MOCK_TAGS, MOCK_VACANCIES, getAllResumes, getMyResumes, getResumeById } from '../../data/mock-data';
 
 /**
  * Mock API for resumes and vacancies until backend is ready.
@@ -23,6 +23,26 @@ export const dataMockInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>
         new HttpResponse({
           status: 200,
           body: MOCK_VACANCIES,
+        })
+      );
+    }
+
+    if (url.includes('/api/tags')) {
+      const query = (req.params.get('query') ?? '').toLowerCase().trim();
+      const exclude = (req.params.get('exclude') ?? '')
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean);
+      const excludeSet = new Set(exclude.map((t) => t.toLowerCase()));
+      const result = MOCK_TAGS.filter((tag) => {
+        if (excludeSet.has(tag.toLowerCase())) return false;
+        if (!query) return true;
+        return tag.toLowerCase().includes(query);
+      });
+      return of(
+        new HttpResponse({
+          status: 200,
+          body: result,
         })
       );
     }

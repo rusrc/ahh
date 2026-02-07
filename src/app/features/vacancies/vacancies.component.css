@@ -74,6 +74,18 @@
   margin-bottom: 0.75rem;
 }
 
+.filter-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.filter-title-row .filter-title {
+  margin-bottom: 0;
+}
+
 .salary-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -111,6 +123,20 @@
   max-height: 220px;
   overflow: auto;
   padding-right: 0.25rem;
+}
+
+.tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.tag-selected {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
 }
 
 .tag-option {

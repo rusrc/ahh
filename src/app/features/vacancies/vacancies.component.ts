@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import type { Vacancy } from '../../models/vacancy.model';
 import { VacanciesService } from './vacancies.service';
@@ -20,6 +20,7 @@ export class VacanciesComponent {
   onlyWithSalary = signal(false);
   selectedTags = signal<string[]>([]);
   tagSearch = signal('');
+  remoteTags = signal<string[]>([]);
 
   allTags = computed(() => {
     const set = new Set<string>();
@@ -27,12 +28,7 @@ export class VacanciesComponent {
     return Array.from(set).sort();
   });
 
-  filteredTags = computed(() => {
-    const query = this.tagSearch().trim().toLowerCase();
-    const tags = this.allTags();
-    if (!query) return tags;
-    return tags.filter((tag) => tag.toLowerCase().includes(query));
-  });
+  topTags = computed(() => this.allTags().slice(0, 15));
 
   selectedTagSet = computed(() => new Set(this.selectedTags()));
 
@@ -65,6 +61,19 @@ export class VacanciesComponent {
     this.vacanciesService.getVacancies().subscribe((vacancies) => {
       this.vacancies.set(vacancies ?? []);
     });
+
+    effect(() => {
+      const query = this.tagSearch().trim();
+      const exclude = this.selectedTags();
+      if (!query) {
+        this.remoteTags.set([]);
+        return;
+      }
+      const sub = this.vacanciesService.getTags(query, exclude).subscribe((tags) => {
+        this.remoteTags.set(tags ?? []);
+      });
+      return () => sub.unsubscribe();
+    });
   }
 
   toggleTag(tag: string): void {
@@ -83,6 +92,7 @@ export class VacanciesComponent {
     this.onlyWithSalary.set(false);
     this.selectedTags.set([]);
     this.tagSearch.set('');
+    this.remoteTags.set([]);
   }
 
   respond(vacancy: Vacancy): void {

@@ -12,4 +12,13 @@ export class VacanciesService {
   getVacancies(): Observable<Vacancy[]> {
     return this.http.get<Vacancy[]>(VACANCIES_API);
   }
+
+  getTags(query: string, exclude: string[]): Observable<string[]> {
+    return this.http.get<string[]>('/api/tags', {
+      params: {
+        query,
+        exclude: exclude.join(','),
+      },
+    });
+  }
 }

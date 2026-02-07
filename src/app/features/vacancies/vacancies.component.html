@@ -15,7 +15,7 @@
 
       <label class="field">
         <span>Поиск</span>
-        <input type="text" [(ngModel)]="searchQuery" placeholder="Например: C# или Angular" />
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Поиск..." />
       </label>
 
       <div class="filter-block">
@@ -37,26 +37,58 @@
       </div>
 
       <div class="filter-block">
-        <div class="filter-title">Теги технологий</div>
-        <label class="field">
-          <span>Поиск по тегам</span>
-          <input type="text" [(ngModel)]="tagSearch" placeholder="Например: C#, Angular" />
-        </label>
-        <div class="tag-list">
-          @for (tag of filteredTags(); track tag) {
-            <label class="tag-option">
-              <input
-                type="checkbox"
-                [checked]="selectedTagSet().has(tag)"
-                (change)="toggleTag(tag)"
-              />
-              <span>{{ tag }}</span>
-            </label>
-          }
-          @if (filteredTags().length === 0) {
-            <div class="tag-empty">Нет тегов по запросу.</div>
+        <div class="filter-title-row">
+          <div class="filter-title">Теги технологий</div>
+          <button type="button" class="link-button" (click)="clearFilters()">
+            Сбросить все
+          </button>
+        </div>
+        @if (selectedTags().length) {
+          <div class="tag-selected">
+            @for (tag of selectedTags(); track tag) {
+              <button
+                type="button"
+                class="tag tag-sm active"
+                (click)="toggleTag(tag)"
+              >
+                {{ tag }}
+              </button>
+            }
+          </div>
+        }
+        <div class="tag-chips">
+          @for (tag of topTags(); track tag) {
+            <button
+              type="button"
+              class="tag tag-sm"
+              [class.active]="selectedTagSet().has(tag)"
+              (click)="toggleTag(tag)"
+            >
+              {{ tag }}
+            </button>
           }
         </div>
+        <label class="field">
+
+          <input type="text" [(ngModel)]="tagSearch" placeholder="Например: C#, Angular" />
+        </label>
+        @if (tagSearch().trim()) {
+          <div class="tag-list">
+            @for (tag of remoteTags(); track tag) {
+              <label class="tag-option">
+                <input
+                  type="checkbox"
+                  [checked]="selectedTagSet().has(tag)"
+                  (change)="toggleTag(tag)"
+                />
+                <span>{{ tag }}</span>
+              </label>
+            }
+            @if (remoteTags().length === 0) {
+              <div class="tag-empty">Нет тегов по запросу.</div>
+            }
+          </div>
+        }
       </div>
     </aside>
 
