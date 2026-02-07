@@ -1,19 +1,25 @@
-import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, computed, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import type { Vacancy } from '../../models/vacancy.model';
 import { VacanciesService } from './vacancies.service';
 
 @Component({
   selector: 'app-vacancies',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './vacancies.component.html',
   styleUrl: './vacancies.component.css',
 })
 export class VacanciesComponent {
   private vacanciesService = inject(VacanciesService);
   vacancies = signal<Vacancy[]>([]);
-  selectedTag = signal<string | null>(null);
+  searchQuery = signal('');
+  salaryFrom = signal('');
+  salaryTo = signal('');
+  onlyWithSalary = signal(false);
+  selectedTags = signal<string[]>([]);
+  tagSearch = signal('');
 
   allTags = computed(() => {
     const set = new Set<string>();
@@ -21,11 +27,38 @@ export class VacanciesComponent {
     return Array.from(set).sort();
   });
 
+  filteredTags = computed(() => {
+    const query = this.tagSearch().trim().toLowerCase();
+    const tags = this.allTags();
+    if (!query) return tags;
+    return tags.filter((tag) => tag.toLowerCase().includes(query));
+  });
+
+  selectedTagSet = computed(() => new Set(this.selectedTags()));
+
   filteredVacancies = computed(() => {
-    const tag = this.selectedTag();
-    const vacancies = this.vacancies();
-    if (!tag) return vacancies;
-    return vacancies.filter((v) => v.tags.includes(tag));
+    const query = this.searchQuery().trim().toLowerCase();
+    const from = this.parseNumber(this.salaryFrom());
+    const to = this.parseNumber(this.salaryTo());
+    const onlySalary = this.onlyWithSalary();
+    const selected = this.selectedTagSet();
+    return this.vacancies().filter((v) => {
+      if (onlySalary && !v.salary) return false;
+      if (query) {
+        const hay = `${v.title} ${v.company}`.toLowerCase();
+        if (!hay.includes(query)) return false;
+      }
+      if (selected.size > 0 && !v.tags.some((t) => selected.has(t))) {
+        return false;
+      }
+      if (from !== null || to !== null) {
+        const base = this.extractSalary(v.salary);
+        if (base === null) return false;
+        if (from !== null && base < from) return false;
+        if (to !== null && base > to) return false;
+      }
+      return true;
+    });
   });
 
   constructor() {
@@ -34,12 +67,40 @@ export class VacanciesComponent {
     });
   }
 
-  selectTag(tag: string): void {
-    this.selectedTag.set(this.selectedTag() === tag ? null : tag);
+  toggleTag(tag: string): void {
+    const current = this.selectedTags();
+    if (current.includes(tag)) {
+      this.selectedTags.set(current.filter((t) => t !== tag));
+    } else {
+      this.selectedTags.set([...current, tag]);
+    }
+  }
+
+  clearFilters(): void {
+    this.searchQuery.set('');
+    this.salaryFrom.set('');
+    this.salaryTo.set('');
+    this.onlyWithSalary.set(false);
+    this.selectedTags.set([]);
+    this.tagSearch.set('');
   }
 
   respond(vacancy: Vacancy): void {
     console.log('Отклик на вакансию', vacancy.id, vacancy.title);
     alert(`Отклик отправлен на вакансию: ${vacancy.title}`);
+  }
+
+  private extractSalary(value?: string): number | null {
+    if (!value) return null;
+    const digits = value.match(/\d+/g);
+    if (!digits) return null;
+    return Number(digits.join(''));
+  }
+
+  private parseNumber(value: string): number | null {
+    const trimmed = value.trim();
+    if (!trimmed) return null;
+    const parsed = Number(trimmed);
+    return Number.isFinite(parsed) ? parsed : null;
   }
 }

@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import type { Resume } from '../../models/resume.model';
+import type { Resume, WorkExperience } from '../../models/resume.model';
 import { ResumeService } from './resume.service';
 
 @Component({
@@ -25,5 +25,14 @@ export class ResumeDetailComponent {
         this.resume.set(resume ?? null);
       });
     }
+  }
+
+  formatPeriod(exp: WorkExperience): string {
+    const start = exp.startDate ? exp.startDate : '—';
+    const end = exp.isCurrent ? 'по настоящее время' : exp.endDate ? exp.endDate : '—';
+    if (start === '—' && end === '—') {
+      return 'Период не указан';
+    }
+    return `${start} — ${end}`;
   }
 }

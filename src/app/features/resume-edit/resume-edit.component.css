@@ -16,6 +16,86 @@
   padding: 1.25rem;
 }
 
+.photo-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.avatar {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e2e8f0;
+  background: #f1f5f9;
+}
+
+.photo-preview {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: grid;
+  place-items: center;
+}
+
+.photo-ring {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 2px solid rgba(14, 116, 144, 0.2);
+  pointer-events: none;
+}
+
+.photo-actions {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: 1px dashed #cbd5e1;
+  background: linear-gradient(135deg, rgba(226, 232, 240, 0.4), rgba(241, 245, 249, 0.9));
+}
+
+.photo-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--app-text);
+}
+
+.photo-subtitle {
+  font-size: 0.85rem;
+  color: var(--app-text-muted);
+}
+
+.photo-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.photo-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.photo-btn input[type='file'] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid #e2e8f0;
+  color: var(--app-text);
+}
+
+.photo-link {
+  margin: 0;
+}
+
 .section-header {
   display: flex;
   align-items: center;
@@ -28,6 +108,21 @@
   display: grid;
   gap: 0.35rem;
   margin-bottom: 0.75rem;
+}
+
+.period-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.75rem 0;
+  font-size: 0.9rem;
+  color: var(--app-text-muted);
 }
 
 .field input,

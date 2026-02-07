@@ -47,6 +47,7 @@ const MOCK_MY_RESUMES: Resume[] = [
       fullName: 'Иванов Иван Иванович',
       birthDate: '1990-05-15',
       city: 'Москва',
+      photoUrl: 'https://i.pravatar.cc/160?img=11',
     },
     contacts: {
       email: 'ivanov@example.com',
@@ -58,15 +59,21 @@ const MOCK_MY_RESUMES: Resume[] = [
         id: 'e1',
         company: 'ООО ВебАгентство',
         position: 'Junior Frontend Developer',
-        period: '2018 — 2020',
-        description: 'Вёрстка лендингов, поддержка корпоративного сайта на AngularJS.',
+        startDate: '2018-03-01',
+        endDate: '2020-02-01',
+        isCurrent: false,
+        description:
+          'Вёрстка лендингов, поддержка корпоративного сайта на AngularJS.',
       },
       {
         id: 'e2',
         company: 'Стартап Тех',
         position: 'Frontend Developer',
-        period: '2020 — 2024',
-        description: 'Разработка SPA на Angular, код-ревью, менторинг джуниоров.',
+        startDate: '2020-03-01',
+        endDate: '2024-01-15',
+        isCurrent: false,
+        description:
+          'Разработка SPA на Angular, код-ревью, менторинг джуниоров.',
       },
     ],
   },
@@ -76,6 +83,7 @@ const MOCK_MY_RESUMES: Resume[] = [
     personalInfo: {
       fullName: 'Иванов Иван Иванович',
       city: 'Москва',
+      photoUrl: 'https://i.pravatar.cc/160?img=32',
     },
     contacts: {
       email: 'ivanov@example.com',
@@ -86,8 +94,11 @@ const MOCK_MY_RESUMES: Resume[] = [
         id: 'e3',
         company: 'Стартап Тех',
         position: 'Frontend Developer',
-        period: '2020 — 2024',
-        description: 'Разработка SPA на Angular, участие в бэкенде на Node.js.',
+        startDate: '2020-03-01',
+        endDate: '2024-01-15',
+        isCurrent: false,
+        description:
+          'Разработка SPA на Angular, участие в бэкенде на Node.js.',
       },
     ],
   },

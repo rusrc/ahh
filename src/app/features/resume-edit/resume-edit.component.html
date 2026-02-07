@@ -6,6 +6,31 @@
 
     <section class="card section-card">
       <h2 class="section-title">Основное</h2>
+      <div class="photo-row">
+        <div class="photo-preview">
+          <img class="avatar" [src]="getPhotoUrl(res)" alt="Фото" />
+          <span class="photo-ring"></span>
+        </div>
+        <div class="photo-actions">
+          <div class="photo-title">Фото для резюме</div>
+          <div class="photo-subtitle">
+            Перетащите изображение сюда или выберите файл.
+          </div>
+          <div class="photo-buttons">
+            <label class="btn photo-btn">
+              Загрузить
+              <input type="file" accept="image/*" (change)="onPhotoSelected($event, res)" />
+            </label>
+            <button type="button" class="btn btn-ghost" (click)="removePhoto(res)">
+              Удалить
+            </button>
+          </div>
+          <label class="field photo-link">
+            <span>или вставьте ссылку</span>
+            <input type="url" [(ngModel)]="res.personalInfo.photoUrl" placeholder="https://..." />
+          </label>
+        </div>
+      </div>
       <label class="field">
         <span>Название</span>
         <input type="text" [(ngModel)]="res.title" />
@@ -40,39 +65,55 @@
       </label>
     </section>
 
-    <section class="section-card">
+    <section class="_section-card">
       <div class="section-header">
         <h2 class="section-title">Опыт работы</h2>
         <button type="button" class="btn" (click)="addExperience()">Добавить</button>
       </div>
-      <div class="experience-cards">
-        @for (exp of res.workExperience; track exp.id) {
-          <div class="card experience-card">
+
+      @for (exp of res.workExperience; track exp.id) {
+        <div class="card experience-card">
+          <label class="field">
+            <span>Компания</span>
+            <input type="text" [(ngModel)]="exp.company" />
+          </label>
+          <label class="field">
+            <span>Должность</span>
+            <input type="text" [(ngModel)]="exp.position" />
+          </label>
+          <div class="period-row">
             <label class="field">
-              <span>Компания</span>
-              <input type="text" [(ngModel)]="exp.company" />
+              <span>От</span>
+              <input type="date" [(ngModel)]="exp.startDate" />
             </label>
             <label class="field">
-              <span>Должность</span>
-              <input type="text" [(ngModel)]="exp.position" />
+              <span>До</span>
+              <input type="date" [(ngModel)]="exp.endDate" [disabled]="exp.isCurrent" />
             </label>
-            <label class="field">
-              <span>Период</span>
-              <input type="text" [(ngModel)]="exp.period" />
-            </label>
-            <label class="field">
-              <span>Описание</span>
-              <textarea rows="3" [(ngModel)]="exp.description"></textarea>
-            </label>
-            <button type="button" class="btn btn-danger" (click)="removeExperience(exp.id)">Удалить</button>
           </div>
-        }
-      </div>
+          <label class="checkbox-field">
+            <input type="checkbox" [(ngModel)]="exp.isCurrent" (change)="onCurrentToggle(exp)" />
+            <span>Работаю по настоящее время</span>
+          </label>
+          <label class="field">
+            <span>Описание</span>
+            <textarea rows="3" [(ngModel)]="exp.description"></textarea>
+          </label>
+          <button type="button" class="btn btn-danger" (click)="removeExperience(exp.id)">
+            Удалить
+          </button>
+        </div>
+        <br>
+      }
     </section>
 
     <div class="actions">
       <button type="button" class="btn btn-primary" [disabled]="saving()" (click)="save()">
-        @if (saving()) { Сохранение... } @else { Сохранить }
+        @if (saving()) {
+          Сохранение...
+        } @else {
+          Сохранить
+        }
       </button>
       @if (saved()) {
         <span class="saved">Сохранено</span>

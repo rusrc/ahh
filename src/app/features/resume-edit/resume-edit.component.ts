@@ -38,13 +38,45 @@ export class ResumeEditComponent {
       id: `e-${Date.now()}`,
       company: '',
       position: '',
-      period: '',
+      startDate: '',
+      endDate: '',
+      isCurrent: false,
       description: '',
     };
     this.resume.set({
       ...current,
       workExperience: [...current.workExperience, next],
     });
+  }
+
+  onCurrentToggle(exp: WorkExperience): void {
+    if (exp.isCurrent) {
+      exp.endDate = '';
+    }
+  }
+
+  getPhotoUrl(resume: Resume): string {
+    return resume.personalInfo.photoUrl || `https://i.pravatar.cc/120?u=${resume.id}`;
+  }
+
+  onPhotoSelected(event: Event, resume: Resume): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
+    const file = input.files[0];
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = typeof reader.result === 'string' ? reader.result : '';
+      if (result) {
+        resume.personalInfo.photoUrl = result;
+      }
+      input.value = '';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  removePhoto(resume: Resume): void {
+    resume.personalInfo.photoUrl = '';
   }
 
   removeExperience(id: string): void {

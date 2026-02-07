@@ -1,37 +1,90 @@
 <div class="vacancies-page">
-  <h1 class="page-title">Вакансии</h1>
-
-  <div class="filter-tags">
-    <span class="filter-label">Фильтр:</span>
-    @for (tag of allTags(); track tag) {
-      <button
-        type="button"
-        class="tag"
-        [class.active]="selectedTag() === tag"
-        (click)="selectTag(tag)"
-      >
-        {{ tag }}
-      </button>
-    }
+  <div class="page-header">
+    <h1 class="page-title">Вакансии</h1>
+    <div class="page-meta">
+      Найдено: <strong>{{ filteredVacancies().length }}</strong>
+    </div>
   </div>
 
-  <div class="vacancy-grid">
-    @for (v of filteredVacancies(); track v.id) {
-      <div class="card vacancy-card">
-        <h3 class="vacancy-title">{{ v.title }}</h3>
-        <p class="vacancy-company">{{ v.company }}</p>
-        @if (v.salary) {
-          <p class="vacancy-salary">{{ v.salary }}</p>
-        }
-        <div class="vacancy-tags">
-          @for (t of v.tags; track t) {
-            <span class="tag tag-sm">{{ t }}</span>
+  <div class="vacancies-layout">
+    <aside class="filters card">
+      <div class="filters-header">
+        <h2 class="filters-title">Фильтры</h2>
+        <button type="button" class="link-button" (click)="clearFilters()">Сбросить</button>
+      </div>
+
+      <label class="field">
+        <span>Поиск</span>
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Например: C# или Angular" />
+      </label>
+
+      <div class="filter-block">
+        <div class="filter-title">Уровень дохода</div>
+        <div class="salary-row">
+          <label class="field">
+            <span>от</span>
+            <input type="number" min="0" [(ngModel)]="salaryFrom" placeholder="150000" />
+          </label>
+          <label class="field">
+            <span>до</span>
+            <input type="number" min="0" [(ngModel)]="salaryTo" placeholder="250000" />
+          </label>
+        </div>
+        <label class="checkbox-field">
+          <input type="checkbox" [(ngModel)]="onlyWithSalary" />
+          <span>Указан доход</span>
+        </label>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-title">Теги технологий</div>
+        <label class="field">
+          <span>Поиск по тегам</span>
+          <input type="text" [(ngModel)]="tagSearch" placeholder="Например: C#, Angular" />
+        </label>
+        <div class="tag-list">
+          @for (tag of filteredTags(); track tag) {
+            <label class="tag-option">
+              <input
+                type="checkbox"
+                [checked]="selectedTagSet().has(tag)"
+                (change)="toggleTag(tag)"
+              />
+              <span>{{ tag }}</span>
+            </label>
+          }
+          @if (filteredTags().length === 0) {
+            <div class="tag-empty">Нет тегов по запросу.</div>
           }
         </div>
-        <button type="button" class="btn btn-primary vacancy-btn" (click)="respond(v)">
-          Откликнуться
-        </button>
       </div>
-    }
+    </aside>
+
+    <div class="vacancy-grid">
+      @for (v of filteredVacancies(); track v.id) {
+        <div class="card vacancy-card">
+          <h3 class="vacancy-title">{{ v.title }}</h3>
+          <p class="vacancy-company">{{ v.company }}</p>
+          @if (v.salary) {
+            <p class="vacancy-salary">{{ v.salary }}</p>
+          }
+          <div class="vacancy-tags">
+            @for (t of v.tags; track t) {
+              <button
+                type="button"
+                class="tag tag-sm"
+                [class.active]="selectedTagSet().has(t)"
+                (click)="toggleTag(t)"
+              >
+                {{ t }}
+              </button>
+            }
+          </div>
+          <button type="button" class="btn btn-primary vacancy-btn" (click)="respond(v)">
+            Откликнуться
+          </button>
+        </div>
+      }
+    </div>
   </div>
 </div>

@@ -2,7 +2,9 @@ export interface WorkExperience {
   id: string;
   company: string;
   position: string;
-  period: string;
+  startDate: string;
+  endDate?: string;
+  isCurrent: boolean;
   description: string;
 }
 
@@ -13,6 +15,7 @@ export interface Resume {
     fullName: string;
     birthDate?: string;
     city?: string;
+    photoUrl?: string;
   };
   contacts: {
     email: string;

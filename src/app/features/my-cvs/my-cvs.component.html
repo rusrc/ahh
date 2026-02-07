@@ -4,9 +4,12 @@
   <div class="resume-grid">
     @for (r of resumes(); track r.id) {
       <a [routerLink]="['/resume-edit', r.id]" class="card resume-card">
-        <h3 class="resume-card-title">{{ r.title }}</h3>
-        <p class="resume-card-info">{{ r.personalInfo.fullName }}</p>
-        <p class="resume-card-meta">{{ r.workExperience.length }} мест работы</p>
+        <img class="avatar" [src]="getPhotoUrl(r)" alt="Фото" />
+        <div class="resume-card-content">
+          <h3 class="resume-card-title">{{ r.title }}</h3>
+          <p class="resume-card-info">{{ r.personalInfo.fullName }}</p>
+          <p class="resume-card-meta">{{ r.workExperience.length }} мест работы</p>
+        </div>
       </a>
     }
   </div>

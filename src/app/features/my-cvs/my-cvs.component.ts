@@ -19,4 +19,8 @@ export class MyCvsComponent {
       this.resumes.set(resumes ?? []);
     });
   }
+
+  getPhotoUrl(resume: Resume): string {
+    return resume.personalInfo.photoUrl || `https://i.pravatar.cc/120?u=${resume.id}`;
+  }
 }
