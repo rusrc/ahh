@@ -1,0 +1,106 @@
+.resume-detail-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 0.9375rem;
+  color: var(--app-primary);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.page-title {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--app-text);
+}
+
+.resume-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.section-card {
+  padding: 1.25rem;
+}
+
+.section-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--app-text);
+}
+
+.info-list {
+  margin: 0;
+  display: grid;
+  gap: 0.5rem 1rem;
+  grid-template-columns: auto 1fr;
+}
+
+.info-list dt {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--app-text-muted);
+  font-weight: 500;
+}
+
+.info-list dd {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--app-text);
+}
+
+.experience-section .section-title {
+  margin-bottom: 0.75rem;
+}
+
+.experience-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.experience-card {
+  padding: 1.25rem;
+}
+
+.exp-company {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--app-text);
+}
+
+.exp-position {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--app-text);
+}
+
+.exp-period {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.8125rem;
+  color: var(--app-text-muted);
+}
+
+.exp-description {
+  margin: 0.75rem 0 0 0;
+  font-size: 0.875rem;
+  color: var(--app-text);
+  line-height: 1.5;
+}
+
+.not-found {
+  margin: 1rem 0 0 0;
+  color: var(--app-text-muted);
+}

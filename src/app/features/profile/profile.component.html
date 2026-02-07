@@ -1,0 +1,13 @@
+<div class="profile-page">
+  <h1 class="page-title">Мои резюме</h1>
+
+  <div class="resume-grid">
+    @for (r of resumes; track r.id) {
+      <a [routerLink]="['/resume', r.id]" class="card resume-card">
+        <h3 class="resume-card-title">{{ r.title }}</h3>
+        <p class="resume-card-info">{{ r.personalInfo.fullName }}</p>
+        <p class="resume-card-meta">{{ r.workExperience.length }} мест работы</p>
+      </a>
+    }
+  </div>
+</div>
