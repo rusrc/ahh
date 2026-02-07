@@ -11,6 +11,9 @@
   --app-primary: #2563eb;
   --app-primary-hover: #1d4ed8;
   --app-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --app-bg-accent: rgba(37, 99, 235, 0.16);
+  --app-bg-warm: rgba(14, 165, 233, 0.12);
+  --app-bg-soft: rgba(99, 102, 241, 0.1);
 }
 
 * {
@@ -20,7 +23,21 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--app-bg);
+  background-color: var(--app-bg);
+  /* Фон сайта: редактируйте градиенты/паттерн здесь */
+  background-image:
+    radial-gradient(900px 500px at 0% 0%, var(--app-bg-warm), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, var(--app-bg-soft), transparent 55%),
+    radial-gradient(800px 500px at 50% 100%, var(--app-bg-accent), transparent 65%),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+    repeating-linear-gradient(
+      45deg,
+      rgba(148, 163, 184, 0.08) 0,
+      rgba(148, 163, 184, 0.08) 1px,
+      transparent 1px,
+      transparent 14px
+    );
+  background-attachment: fixed;
   color: var(--app-text);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
