@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { getResumeById } from '../../data/mock-data';
 import type { Resume } from '../../models/resume.model';
+import { ResumeService } from './resume.service';
 
 @Component({
   selector: 'app-resume-detail',
@@ -12,13 +12,15 @@ import type { Resume } from '../../models/resume.model';
 })
 export class ResumeDetailComponent {
   private route = inject(ActivatedRoute);
+  private resumeService = inject(ResumeService);
   resume = signal<Resume | null>(null);
 
   constructor() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      const r = getResumeById(id);
-      this.resume.set(r ?? null);
+      this.resumeService.getResumeById(id).subscribe((resume) => {
+        this.resume.set(resume ?? null);
+      });
     }
   }
 }

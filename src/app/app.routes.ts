@@ -9,7 +9,7 @@ export const routes: Routes = [
     loadComponent: () => import('./layout/layout.component').then((m) => m.LayoutComponent),
     children: [
       { path: '', loadComponent: () => import('./features/vacancies/vacancies.component').then((m) => m.VacanciesComponent) },
-      { path: 'profile', loadComponent: () => import('./features/profile/profile.component').then((m) => m.ProfileComponent) },
+      { path: 'specialist', loadComponent: () => import('./features/specialist/specialist.component').then((m) => m.SpecialistComponent) },
       { path: 'resume/:id', loadComponent: () => import('./features/resume-detail/resume-detail.component').then((m) => m.ResumeDetailComponent) },
     ],
   },

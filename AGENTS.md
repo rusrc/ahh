@@ -18,7 +18,7 @@ Anti Headhunter (ahh) is a web app for aggregating IT-focused resumes and vacanc
 - src/app/features:
   - vacancies: vacancies list UI
   - resume-detail: resume detail UI (card-based)
-  - profile: user profile / resumes list
+  - specialist: specialist resumes list (formerly profile)
   - login: auth UI
 - src/app/models:
   - resume.model.ts, vacancy.model.ts (domain models)
@@ -37,5 +37,7 @@ Anti Headhunter (ahh) is a web app for aggregating IT-focused resumes and vacanc
 
 ## Notes / Risks
 - Data layer is currently mocked (mock-data.ts). Treat it as temporary.
-- No backend yet: auth is mocked in `src/app/core/auth` (service + interceptor).
+- No backend yet:
+  - Auth is mocked in `src/app/core/auth` (service + interceptor).
+  - Feature data is mocked via `src/app/core/data/mock-data.interceptor.ts`.
   This will be replaced by a real server later.

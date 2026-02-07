@@ -1,8 +1,8 @@
-<div class="profile-page">
+<div class="specialist-page">
   <h1 class="page-title">Мои резюме</h1>
 
   <div class="resume-grid">
-    @for (r of resumes; track r.id) {
+    @for (r of resumes(); track r.id) {
       <a [routerLink]="['/resume', r.id]" class="card resume-card">
         <h3 class="resume-card-title">{{ r.title }}</h3>
         <p class="resume-card-info">{{ r.personalInfo.fullName }}</p>
