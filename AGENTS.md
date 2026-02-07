@@ -19,6 +19,8 @@ Anti Headhunter (ahh) is a web app for aggregating IT-focused resumes and vacanc
   - vacancies: vacancies list UI
   - resume-detail: resume detail UI (card-based)
   - specialist: specialist resumes list (formerly profile)
+  - specialists: HR specialists list
+  - my-vacancies: HR vacancies list + add form
   - login: auth UI
 - src/app/models:
   - resume.model.ts, vacancy.model.ts (domain models)

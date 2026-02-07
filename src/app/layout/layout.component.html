@@ -3,7 +3,13 @@
     <a routerLink="/" class="logo">Ahh</a>
     <nav class="nav">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Вакансии</a>
-      <a routerLink="/specialist" routerLinkActive="active">Мои резюме</a>
+      @if (auth.isRole('specialist')) {
+        <a routerLink="/specialist" routerLinkActive="active">Специалисты</a>
+      }
+      @if (auth.isRole('hr')) {
+        <a routerLink="/specialists" routerLinkActive="active">Специалисты</a>
+        <a routerLink="/my-vacancies" routerLinkActive="active">Мои вакансии</a>
+      }
     </nav>
     <button type="button" class="btn btn-logout" (click)="auth.logout()">Выйти</button>
   </header>

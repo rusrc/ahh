@@ -1,7 +1,7 @@
 @let r = resume();
 @if (r; as res) {
   <div class="resume-detail-page">
-    <a routerLink="/specialist" class="back-link">← Мои резюме</a>
+    <a [routerLink]="backLink()" class="back-link">Test {{ backLabel() }}</a>
     <h1 class="page-title">{{ res.title }}</h1>
 
     <div class="resume-sections">
@@ -54,7 +54,7 @@
   </div>
 } @else {
   <div class="resume-detail-page">
-    <a routerLink="/specialist" class="back-link">← Мои резюме</a>
+    <a [routerLink]="backLink()" class="back-link">в†ђ {{ backLabel() }}</a>
     <p class="not-found">Резюме не найдено.</p>
   </div>
 }

@@ -1,0 +1,16 @@
+<div class="specialists-page">
+  <h1 class="page-title">Специалисты</h1>
+
+  <div class="resume-grid">
+    @for (r of specialists(); track r.id) {
+      <div class="card resume-card">
+        <div class="resume-card-content">
+          <h3 class="resume-card-title">{{ r.title }}</h3>
+          <p class="resume-card-info">{{ r.personalInfo.fullName }}</p>
+          <p class="resume-card-meta">{{ r.workExperience.length }} мест работы</p>
+        </div>
+        <a [routerLink]="['/resume', r.id]" class="btn btn-primary">Подробнее</a>
+      </div>
+    }
+  </div>
+</div>

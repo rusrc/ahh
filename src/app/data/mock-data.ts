@@ -67,6 +67,10 @@ export function getMyResumes(): Resume[] {
   return [...MOCK_MY_RESUMES];
 }
 
+export function getAllResumes(): Resume[] {
+  return [...MOCK_MY_RESUMES];
+}
+
 export function getResumeById(id: string): Resume | undefined {
   return MOCK_MY_RESUMES.find((r) => r.id === id);
 }

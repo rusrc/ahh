@@ -1,0 +1,54 @@
+.my-vacancies-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--app-text);
+}
+
+.vacancy-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.vacancy-card {
+  padding: 1.25rem;
+}
+
+.vacancy-title {
+  margin: 0 0 0.375rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--app-text);
+}
+
+.vacancy-company {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--app-text-muted);
+}
+
+.vacancy-salary {
+  margin: 0.5rem 0 0 0;
+  font-weight: 600;
+}
+
+.vacancy-tags {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
