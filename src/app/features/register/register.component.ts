@@ -17,6 +17,7 @@ export class RegisterComponent {
   activeRole = signal<RegisterRole>('specialist');
   loading = signal(false);
   message = signal<string | null>(null);
+  phoneError = signal<string | null>(null);
 
   form = {
     fullName: '',
@@ -62,11 +63,52 @@ export class RegisterComponent {
     }, 300);
   }
 
+  onPhoneInput(value: string): void {
+    const trimmed = value.trim();
+    if (!trimmed) {
+      this.form.phone = '';
+      this.phoneError.set(null);
+      return;
+    }
+    const digits = trimmed.replace(/\D/g, '').slice(0, 11);
+    if (!digits) {
+      this.form.phone = '';
+      this.phoneError.set(null);
+      return;
+    }
+    const first = digits[0];
+    if (first !== '7' && first !== '8') {
+      this.form.phone = digits;
+      this.phoneError.set('Введите номер РФ, начиная с +7 или 8.');
+      return;
+    }
+    this.phoneError.set(null);
+    const normalized = first === '8' ? `7${digits.slice(1)}` : digits;
+    this.form.phone = this.formatRuPhone(normalized);
+  }
+
   private isValidRuPhone(value: string): boolean {
     const trimmed = value.trim();
     if (!trimmed) return false;
     const digits = trimmed.replace(/\D/g, '');
     if (digits.length !== 11) return false;
     return digits.startsWith('7') || digits.startsWith('8');
+  }
+
+  private formatRuPhone(digits: string): string {
+    const normalized = digits.slice(0, 11);
+    const parts = normalized.split('');
+    const country = parts[0] ?? '';
+    const p1 = parts.slice(1, 4).join('');
+    const p2 = parts.slice(4, 7).join('');
+    const p3 = parts.slice(7, 9).join('');
+    const p4 = parts.slice(9, 11).join('');
+    let result = `+${country}`;
+    if (p1) result += ` (${p1}`;
+    if (p1.length === 3) result += ')';
+    if (p2) result += ` ${p2}`;
+    if (p3) result += `-${p3}`;
+    if (p4) result += `-${p4}`;
+    return result;
   }
 }
