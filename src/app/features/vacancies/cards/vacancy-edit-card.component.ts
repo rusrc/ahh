@@ -7,6 +7,7 @@ interface VacancyEditForm {
   title: string;
   company: string;
   salary: string;
+  description: string;
   tags: string;
 }
 
@@ -25,6 +26,7 @@ export class VacancyEditCardComponent implements OnChanges {
     title: '',
     company: '',
     salary: '',
+    description: '',
     tags: '',
   };
 
@@ -34,6 +36,7 @@ export class VacancyEditCardComponent implements OnChanges {
         title: this.vacancy.title ?? '',
         company: this.vacancy.company ?? '',
         salary: this.vacancy.salary ?? '',
+        description: this.vacancy.description ?? '',
         tags: (this.vacancy.tags ?? []).join(', '),
       };
     }
@@ -51,6 +54,7 @@ export class VacancyEditCardComponent implements OnChanges {
       title: this.form.title.trim(),
       company: this.form.company.trim(),
       salary: this.form.salary.trim() || undefined,
+      description: this.form.description.trim() || undefined,
       tags,
     });
   }

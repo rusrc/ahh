@@ -6,6 +6,8 @@ export const MOCK_VACANCIES: Vacancy[] = [
     id: '1',
     title: 'Frontend-разработчик (Angular)',
     company: 'ООО ТехСофт',
+    description:
+      'Angular front-end developer for an HR platform. Tasks: build UI, integrate APIs, improve UX, and optimize performance.',
     tags: ['Angular', 'TypeScript', 'JavaScript'],
     salary: 'от 150 000 ₽',
   },
@@ -13,6 +15,8 @@ export const MOCK_VACANCIES: Vacancy[] = [
     id: '2',
     title: 'Backend-разработчик (Node.js)',
     company: 'Стартап Инновации',
+    description:
+      'Backend engineer for high-load services. Stack: Node.js, PostgreSQL. Tasks: API design, query optimization, monitoring.',
     tags: ['Node.js', 'PostgreSQL', 'REST'],
     salary: 'от 180 000 ₽',
   },
@@ -20,6 +24,8 @@ export const MOCK_VACANCIES: Vacancy[] = [
     id: '3',
     title: 'Fullstack разработчик',
     company: 'Цифра',
+    description:
+      'Fullstack developer for internal systems. Front: Angular, Back: Node.js. Strong TypeScript and architecture experience.',
     tags: ['Angular', 'Node.js', 'TypeScript'],
     salary: 'по договорённости',
   },
@@ -27,6 +33,8 @@ export const MOCK_VACANCIES: Vacancy[] = [
     id: '4',
     title: 'React-разработчик',
     company: 'ВебСтудио',
+    description:
+      'Project-based role in an agency. React + Redux, responsive layouts, close work with designers.',
     tags: ['React', 'JavaScript', 'CSS'],
     salary: 'от 120 000 ₽',
   },
@@ -34,6 +42,8 @@ export const MOCK_VACANCIES: Vacancy[] = [
     id: '5',
     title: 'Java-разработчик',
     company: 'Банк Софт',
+    description:
+      'Banking services development. Stack: Java, Spring, SQL. Experience with microservices and production support.',
     tags: ['Java', 'Spring', 'SQL'],
     salary: 'от 200 000 ₽',
   },

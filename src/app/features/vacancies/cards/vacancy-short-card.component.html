@@ -21,6 +21,10 @@
     }
   </div>
 
+  @if (getDescriptionPreview()) {
+    <p class="vacancy-description">{{ getDescriptionPreview() }}</p>
+  }
+
   <div class="vacancy-tags">
     @for (t of vacancy.tags; track t) {
       @if (tagsInteractive) {

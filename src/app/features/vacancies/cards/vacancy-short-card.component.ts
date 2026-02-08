@@ -37,4 +37,11 @@ export class VacancyShortCardComponent {
   resolveEditLink(): (string | number)[] | string {
     return this.editLink ?? ['/vacancy-edit', this.vacancy.id];
   }
+
+  getDescriptionPreview(limit = 100): string | null {
+    const value = this.vacancy.description?.trim();
+    if (!value) return null;
+    if (value.length <= limit) return value;
+    return `${value.slice(0, limit).trim()}…`;
+  }
 }

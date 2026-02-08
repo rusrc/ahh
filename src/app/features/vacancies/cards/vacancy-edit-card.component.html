@@ -19,6 +19,17 @@
       </label>
 
       <label class="field">
+        <span class="field-label">Описание</span>
+        <textarea
+          class="input"
+          name="description"
+          rows="5"
+          [(ngModel)]="form.description"
+          placeholder="Кого ищем, задачи, требования"
+        ></textarea>
+      </label>
+
+      <label class="field">
         <span class="field-label">Теги</span>
         <input class="input" name="tags" [(ngModel)]="form.tags" placeholder="Angular, TypeScript, REST" />
       </label>

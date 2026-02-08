@@ -21,7 +21,11 @@
 
   <div class="vacancy-section">
     <h4 class="vacancy-section-title">О вакансии</h4>
-    <p class="vacancy-description">Описание пока не заполнено. Добавьте детали в режиме редактирования.</p>
+    @if (vacancy.description) {
+      <p class="vacancy-description">{{ vacancy.description }}</p>
+    } @else {
+      <p class="vacancy-description">Описание пока не заполнено. Добавьте детали в режиме редактирования.</p>
+    }
   </div>
 
   <div class="vacancy-section">
