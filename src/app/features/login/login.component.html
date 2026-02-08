@@ -1,7 +1,7 @@
 <div class="login-page">
   <div class="login-card card">
     <h1 class="login-title">Вход</h1>
-    <p class="login-subtitle">Anti HeadHunter</p>
+    <p class="login-subtitle">{{ appName }}</p>
 
     <form (ngSubmit)="onSubmit()" class="login-form">
       <div class="form-group">
@@ -35,5 +35,11 @@
         {{ loading() ? 'Вход...' : 'Войти' }}
       </button>
     </form>
+    <p class="login-footer">
+      Нет аккаунта?
+      <a routerLink="/register">Зарегистрироваться</a>
+    </p>
   </div>
 </div>
+
+

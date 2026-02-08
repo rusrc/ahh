@@ -4,6 +4,9 @@ import { roleGuard } from './core/auth/role.guard';
 
 export const routes: Routes = [
   { path: 'login', loadComponent: () => import('./features/login/login.component').then((m) => m.LoginComponent) },
+  { path: 'register', loadComponent: () => import('./features/register/register.component').then((m) => m.RegisterComponent) },
+  { path: 'policy', loadComponent: () => import('./features/policy/policy.component').then((m) => m.PolicyComponent) },
+  { path: 'offer', loadComponent: () => import('./features/offer/offer.component').then((m) => m.OfferComponent) },
   {
     path: '',
     canMatch: [authGuard],
