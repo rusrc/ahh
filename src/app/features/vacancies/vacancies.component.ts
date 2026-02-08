@@ -2,17 +2,20 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import type { Vacancy } from '../../models/vacancy.model';
+import { AuthService } from '../../core/auth/auth.service';
+import { VacancyShortCardComponent } from './cards/vacancy-short-card.component';
 import { VacanciesService } from './vacancies.service';
 
 @Component({
   selector: 'app-vacancies',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, VacancyShortCardComponent],
   templateUrl: './vacancies.component.html',
   styleUrl: './vacancies.component.css',
 })
 export class VacanciesComponent {
   private vacanciesService = inject(VacanciesService);
+  private authService = inject(AuthService);
   vacancies = signal<Vacancy[]>([]);
   searchQuery = signal('');
   salaryFrom = signal('');
@@ -31,6 +34,7 @@ export class VacanciesComponent {
   topTags = computed(() => this.allTags().slice(0, 15));
 
   selectedTagSet = computed(() => new Set(this.selectedTags()));
+  canRespond = computed(() => this.authService.role() !== 'hr');
 
   filteredVacancies = computed(() => {
     const query = this.searchQuery().trim().toLowerCase();

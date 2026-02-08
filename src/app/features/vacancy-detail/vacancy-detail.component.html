@@ -1,0 +1,17 @@
+<div class="vacancy-detail-page">
+  <a class="back-link" routerLink="/">← К списку вакансий</a>
+
+  @if (isLoading()) {
+    <p class="vacancy-state">Загрузка вакансии...</p>
+  } @else if (vacancy()) {
+    <app-vacancy-details-card
+      [vacancy]="vacancy()!"
+      [showRespond]="canRespond()"
+      [showEdit]="canEdit()"
+      [editLink]="['/vacancy-edit', vacancy()!.id]"
+      (respond)="respond($event)"
+    />
+  } @else {
+    <p class="vacancy-state">Вакансия не найдена.</p>
+  }
+</div>

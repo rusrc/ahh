@@ -1,0 +1,33 @@
+<div class="card vacancy-edit-card">
+  <h2 class="vacancy-title">Редактирование вакансии</h2>
+
+  @if (vacancy) {
+    <form class="vacancy-form" (ngSubmit)="onSave()">
+      <label class="field">
+        <span class="field-label">Название</span>
+        <input class="input" name="title" [(ngModel)]="form.title" required />
+      </label>
+
+      <label class="field">
+        <span class="field-label">Компания</span>
+        <input class="input" name="company" [(ngModel)]="form.company" required />
+      </label>
+
+      <label class="field">
+        <span class="field-label">Зарплата</span>
+        <input class="input" name="salary" [(ngModel)]="form.salary" placeholder="Например: от 180 000 ₽" />
+      </label>
+
+      <label class="field">
+        <span class="field-label">Теги</span>
+        <input class="input" name="tags" [(ngModel)]="form.tags" placeholder="Angular, TypeScript, REST" />
+      </label>
+
+      <div class="vacancy-actions">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+      </div>
+    </form>
+  } @else {
+    <p class="vacancy-empty">Вакансия не найдена.</p>
+  }
+</div>

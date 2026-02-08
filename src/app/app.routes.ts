@@ -11,6 +11,11 @@ export const routes: Routes = [
     children: [
       { path: '', loadComponent: () => import('./features/vacancies/vacancies.component').then((m) => m.VacanciesComponent) },
       {
+        path: 'vacancy/:id',
+        loadComponent: () =>
+          import('./features/vacancy-detail/vacancy-detail.component').then((m) => m.VacancyDetailComponent),
+      },
+      {
         path: 'my-cvs',
         canMatch: [roleGuard],
         data: { roles: ['specialist'] },
@@ -31,6 +36,13 @@ export const routes: Routes = [
         data: { roles: ['hr'] },
         loadComponent: () =>
           import('./features/my-vacancies/my-vacancies.component').then((m) => m.MyVacanciesComponent),
+      },
+      {
+        path: 'vacancy-edit/:id',
+        canMatch: [roleGuard],
+        data: { roles: ['hr'] },
+        loadComponent: () =>
+          import('./features/vacancy-edit/vacancy-edit.component').then((m) => m.VacancyEditComponent),
       },
       {
         path: 'resume/:id',

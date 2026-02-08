@@ -2,11 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import type { Vacancy } from '../../models/vacancy.model';
 import { MyVacanciesService } from './my-vacancies.service';
+import { VacancyShortCardComponent } from '../vacancies/cards/vacancy-short-card.component';
 
 @Component({
   selector: 'app-my-vacancies',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, VacancyShortCardComponent],
   templateUrl: './my-vacancies.component.html',
   styleUrl: './my-vacancies.component.css',
 })

@@ -1,0 +1,9 @@
+<div class="vacancy-edit-page">
+  <a class="back-link" routerLink="/my-vacancies">← К моим вакансиям</a>
+
+  @if (isLoading()) {
+    <p class="vacancy-state">Загрузка вакансии...</p>
+  } @else {
+    <app-vacancy-edit-card [vacancy]="vacancy()" (save)="onSave($event)" />
+  }
+</div>

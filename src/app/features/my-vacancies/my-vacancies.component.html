@@ -6,18 +6,7 @@
 
   <div class="vacancy-grid">
     @for (v of vacancies(); track v.id) {
-      <div class="card vacancy-card">
-        <h3 class="vacancy-title">{{ v.title }}</h3>
-        <p class="vacancy-company">{{ v.company }}</p>
-        @if (v.salary) {
-          <p class="vacancy-salary">{{ v.salary }}</p>
-        }
-        <div class="vacancy-tags">
-          @for (t of v.tags; track t) {
-            <span class="tag tag-sm">{{ t }}</span>
-          }
-        </div>
-      </div>
+      <app-vacancy-short-card [vacancy]="v" [showEdit]="true" [editLink]="['/vacancy-edit', v.id]" />
     }
   </div>
 </div>

@@ -39,6 +39,12 @@ export const MOCK_VACANCIES: Vacancy[] = [
   },
 ];
 
+export function getVacancyById(id: string): Vacancy | undefined {
+  return MOCK_VACANCIES.find((vacancy) => vacancy.id === id);
+}
+
+export const VACANCY_IDS = MOCK_VACANCIES.map((vacancy) => vacancy.id);
+
 export const MOCK_TAGS: string[] = [
   'Angular',
   'TypeScript',

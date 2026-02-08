@@ -1,0 +1,89 @@
+.vacancy-details-card {
+  padding: 1.75rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.vacancy-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.vacancy-title {
+  margin: 0 0 0.35rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--app-text);
+}
+
+.vacancy-company {
+  margin: 0;
+  color: var(--app-text-muted);
+}
+
+.vacancy-salary {
+  margin: 0.5rem 0 0 0;
+  font-weight: 600;
+}
+
+.vacancy-section {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.vacancy-section-title {
+  margin: 0;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--app-text-muted);
+}
+
+.vacancy-description {
+  margin: 0;
+  color: var(--app-text);
+}
+
+.vacancy-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag {
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--app-text);
+}
+
+.tag-sm {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.vacancy-edit-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: var(--app-text);
+  text-decoration: none;
+}
+
+.vacancy-edit-link:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+
+.vacancy-edit-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
