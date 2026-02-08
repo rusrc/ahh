@@ -1,4 +1,4 @@
-import type { Vacancy } from '../models/vacancy.model';
+﻿import type { Vacancy } from '../models/vacancy.model';
 import type { Resume } from '../models/resume.model';
 
 export const MOCK_VACANCIES: Vacancy[] = [

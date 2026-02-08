@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import type { Vacancy } from '../../../models/vacancy.model';
-import { TagSelectorComponent } from '../../../shared/tag-selector/tag-selector.component';
+import type { Vacancy } from '../../../../models/vacancy.model';
+import { TagSelectorComponent } from '../../../../shared/tag-selector/tag-selector.component';
 
 interface VacancyEditForm {
   title: string;
@@ -30,6 +30,11 @@ export class VacancyEditCardComponent implements OnChanges {
     description: '',
     tags: [],
   };
+
+  get title(): string {
+    if (!this.vacancy) return 'Вакансия';
+    return this.vacancy.id === 'new' ? 'Создание вакансии' : 'Редактирование вакансии';
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['vacancy'] && this.vacancy) {

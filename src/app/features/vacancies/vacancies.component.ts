@@ -3,7 +3,7 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import type { Vacancy } from '../../models/vacancy.model';
 import { AuthService } from '../../core/auth/auth.service';
-import { VacancyShortCardComponent } from './cards/vacancy-short-card.component';
+import { VacancyShortCardComponent } from './cards/vacancy-short-card/vacancy-short-card.component';
 import { VacanciesService } from './vacancies.service';
 
 @Component({
@@ -118,3 +118,4 @@ export class VacanciesComponent {
     return Number.isFinite(parsed) ? parsed : null;
   }
 }
+

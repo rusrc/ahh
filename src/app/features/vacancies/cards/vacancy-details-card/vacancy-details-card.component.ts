@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import type { Vacancy } from '../../../models/vacancy.model';
+import type { Vacancy } from '../../../../models/vacancy.model';
 
 @Component({
   selector: 'app-vacancy-details-card',

@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
 import type { Vacancy } from '../../models/vacancy.model';
 import { VacanciesService } from '../vacancies/vacancies.service';
-import { VacancyDetailsCardComponent } from '../vacancies/cards/vacancy-details-card.component';
+import { VacancyDetailsCardComponent } from '../vacancies/cards/vacancy-details-card/vacancy-details-card.component';
 
 @Component({
   selector: 'app-vacancy-detail',
@@ -40,3 +40,4 @@ export class VacancyDetailComponent {
     alert(`Отклик отправлен на вакансию: ${vacancy.title}`);
   }
 }
+

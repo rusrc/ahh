@@ -1,8 +1,20 @@
 <div class="my-vacancies-page">
   <div class="page-header">
-    <h1 class="page-title">Мои вакансии</h1>
-    <button type="button" class="btn btn-primary" (click)="addVacancy()">Добавить вакансию</button>
+    <h1 class="page-title">Вакансии</h1>
+    <button type="button" class="btn btn-primary" (click)="startAddVacancy()" [disabled]="isAdding()">
+      Добавить вакансию
+    </button>
   </div>
+
+  @if (isAdding()) {
+    <div class="mb-3">
+      <div class="add-form-header">
+        <h2>Добавление новой вакансии</h2>
+        <button type="button" class="btn btn-ghost" (click)="cancelAddVacancy()">Отменить</button>
+      </div>
+      <app-vacancy-edit-card [vacancy]="draftVacancy()" (save)="saveNewVacancy($event)" />
+    </div>
+  }
 
   <div class="vacancy-grid">
     @for (v of vacancies(); track v.id) {

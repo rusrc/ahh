@@ -19,6 +19,31 @@
   color: var(--app-text);
 }
 
+.add-form {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.add-form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.add-form-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--app-text);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--app-border);
+  color: var(--app-text);
+}
+
 .vacancy-grid {
   display: grid;
   gap: 1rem;

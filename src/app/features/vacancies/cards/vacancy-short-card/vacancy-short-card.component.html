@@ -1,4 +1,4 @@
-<div class="card vacancy-card">
+﻿<div class="card vacancy-card">
   <div class="vacancy-header">
     <div class="vacancy-title-wrap">
       <a class="vacancy-title-link" [routerLink]="resolveDetailsLink()">
@@ -10,7 +10,12 @@
       }
     </div>
     @if (showEdit) {
-      <a class="vacancy-edit-link" [routerLink]="resolveEditLink()" title="Редактировать вакансию" aria-label="Редактировать вакансию">
+      <a
+        class="vacancy-edit-link"
+        [routerLink]="resolveEditLink()"
+        title="Редактировать вакансию"
+        aria-label="Редактировать вакансию"
+      >
         <svg class="vacancy-edit-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
           <path
             d="M13.7 3.3 16.7 6.3 7 16H4v-3l9.7-9.7Zm1.4-1.4a2 2 0 0 1 2.8 0l0.6 0.6a2 2 0 0 1 0 2.8l-1.3 1.3-3.4-3.4 1.3-1.3Z"

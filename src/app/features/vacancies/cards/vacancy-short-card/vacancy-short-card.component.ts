@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import type { Vacancy } from '../../../models/vacancy.model';
+import type { Vacancy } from '../../../../models/vacancy.model';
 
 @Component({
   selector: 'app-vacancy-short-card',
@@ -42,6 +42,7 @@ export class VacancyShortCardComponent {
     const value = this.vacancy.description?.trim();
     if (!value) return null;
     if (value.length <= limit) return value;
-    return `${value.slice(0, limit).trim()}…`;
+    return `${value.slice(0, limit).trim()}...`;
   }
 }
+

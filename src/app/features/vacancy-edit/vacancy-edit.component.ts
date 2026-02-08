@@ -3,7 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import type { Vacancy } from '../../models/vacancy.model';
 import { MyVacanciesService } from '../my-vacancies/my-vacancies.service';
-import { VacancyEditCardComponent } from '../vacancies/cards/vacancy-edit-card.component';
+import { VacancyEditCardComponent } from '../vacancies/cards/vacancy-edit-card/vacancy-edit-card.component';
 
 @Component({
   selector: 'app-vacancy-edit',
@@ -37,3 +37,4 @@ export class VacancyEditComponent {
     alert(`Вакансия сохранена: ${updated.title}`);
   }
 }
+
