@@ -8,11 +8,12 @@ const TAGS_API = '/api/tags';
 export class TagService {
   constructor(private http: HttpClient) {}
 
-  getTags(query: string, exclude: string[]): Observable<string[]> {
+  getTags(query: string, exclude: string[] | null | undefined): Observable<string[]> {
+    const safeExclude = Array.isArray(exclude) ? exclude : [];
     return this.http.get<string[]>(TAGS_API, {
       params: {
-        query,
-        exclude: exclude.join(','),
+        query: query ?? '',
+        exclude: safeExclude.join(','),
       },
     });
   }

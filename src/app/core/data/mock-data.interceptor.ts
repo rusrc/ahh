@@ -11,18 +11,17 @@ import {
 } from '../../data/mock-data';
 import { MOCK_API_DELAY_MS } from '../config/app.constants';
 
-const respond = (body: unknown, status = 200) =>
-  of(
-    new HttpResponse({
-      status,
-      body,
-    })
-  ).pipe(delay(MOCK_API_DELAY_MS));
-
 /**
  * Mock API for resumes and vacancies until backend is ready.
  */
 export const dataMockInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next) => {
+  const respond = (body: unknown, status = 200) =>
+    of(
+      new HttpResponse({
+        status,
+        body,
+      })
+    ).pipe(delay(MOCK_API_DELAY_MS));
   const url = req.url;
 
   if (req.method === 'GET') {
@@ -58,6 +57,7 @@ export const dataMockInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>
         if (!query) return true;
         return tag.toLowerCase().includes(query);
       });
+      console.log('[mock-data] /api/tags', { query, exclude, count: result.length, delayMs: MOCK_API_DELAY_MS });
       return respond(result);
     }
 

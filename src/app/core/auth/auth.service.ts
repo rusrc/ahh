@@ -1,4 +1,5 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { tap, catchError, of } from 'rxjs';
@@ -19,7 +20,8 @@ export interface LoginResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private tokenSignal = signal<string | null>(this.getStoredToken());
+  private platformId = inject(PLATFORM_ID);
+  private tokenSignal = signal<string | null>(null);
 
   readonly isLoggedIn = computed(() => !!this.tokenSignal());
   readonly token = this.tokenSignal.asReadonly();
@@ -28,7 +30,11 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router
-  ) {}
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.tokenSignal.set(this.getStoredToken());
+    }
+  }
 
   login(login: string, password: string) {
     return this.http.post<LoginResponse>(AUTH_API, { login, password }).pipe(
@@ -52,7 +58,7 @@ export class AuthService {
   }
 
   getStoredToken(): string | null {
-    if (typeof localStorage === 'undefined') return null;
+    if (!isPlatformBrowser(this.platformId)) return null;
     return localStorage.getItem(TOKEN_KEY);
   }
 
@@ -61,6 +67,7 @@ export class AuthService {
   }
 
   private storeToken(token: string): void {
+    if (!isPlatformBrowser(this.platformId)) return;
     localStorage.setItem(TOKEN_KEY, token);
   }
 

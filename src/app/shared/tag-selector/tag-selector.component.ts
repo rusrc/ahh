@@ -1,6 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, inject } from '@angular/core';
+import {
+  Component,
+  ChangeDetectorRef,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  ViewChild,
+  inject,
+  OnDestroy,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { TagService } from '../../core/data/tag.service';
 
 @Component({
@@ -10,9 +23,10 @@ import { TagService } from '../../core/data/tag.service';
   templateUrl: './tag-selector.component.html',
   styleUrl: './tag-selector.component.css',
 })
-export class TagSelectorComponent {
+export class TagSelectorComponent implements OnDestroy {
   private tagService = inject(TagService);
   private hostRef = inject(ElementRef<HTMLElement>);
+  private cdr = inject(ChangeDetectorRef);
 
   @ViewChild('inputEl') inputEl?: ElementRef<HTMLInputElement>;
 
@@ -25,6 +39,8 @@ export class TagSelectorComponent {
   suggestions: string[] = [];
   isLoading = false;
   private searchTimer: number | null = null;
+  private requestSub?: Subscription;
+  private destroyed = false;
 
   onInput(value: string): void {
     this.inputValue = value;
@@ -86,6 +102,7 @@ export class TagSelectorComponent {
 
   closeDropdown(): void {
     this.dropdownOpen = false;
+    this.isLoading = false;
   }
 
   focusInput(): void {
@@ -104,19 +121,58 @@ export class TagSelectorComponent {
   }
 
   private fetchSuggestions(): void {
+    if (this.searchTimer) {
+      window.clearTimeout(this.searchTimer);
+      this.searchTimer = null;
+    }
+    this.requestSub?.unsubscribe();
     this.isLoading = true;
     const query = this.inputValue.trim();
-    const exclude = this.selectedTags;
-    this.tagService.getTags(query, exclude).subscribe({
+    const exclude = this.selectedTags ?? [];
+    console.log('[tag-selector] fetchSuggestions start', { query, exclude, dropdownOpen: this.dropdownOpen });
+    let sub: Subscription;
+    let request$;
+    try {
+      request$ = this.tagService.getTags(query, exclude);
+    } catch {
+      this.suggestions = [];
+      this.isLoading = false;
+      console.log('[tag-selector] getTags threw synchronously');
+      return;
+    }
+    const safeRequest$ = request$.pipe(
+      finalize(() => {
+        if (this.requestSub === sub) {
+          this.isLoading = false;
+          this.requestSub = undefined;
+          console.log('[tag-selector] request finalize', { suggestions: this.suggestions.length });
+          this.triggerChangeDetection();
+        }
+      })
+    );
+    sub = safeRequest$.subscribe({
       next: (tags) => {
         this.suggestions = tags ?? [];
-        this.isLoading = false;
+        console.log('[tag-selector] request next', { count: this.suggestions.length });
+        this.triggerChangeDetection();
       },
       error: () => {
         this.suggestions = [];
-        this.isLoading = false;
+        console.log('[tag-selector] request error');
+        this.triggerChangeDetection();
       },
     });
+    this.requestSub = sub;
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed = true;
+    this.requestSub?.unsubscribe();
+  }
+
+  private triggerChangeDetection(): void {
+    if (this.destroyed) return;
+    this.cdr.detectChanges();
   }
 
   @HostListener('document:click', ['$event'])
