@@ -1,0 +1,58 @@
+<div class="relative">
+  <div
+    class="flex flex-wrap items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm transition focus-within:border-slate-400 cursor-text"
+    (click)="focusInput()"
+  >
+    @for (tag of selectedTags; track tag) {
+      <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-700">
+        <span>{{ tag }}</span>
+        <button
+          type="button"
+          class="ml-0.5 inline-flex h-4 w-4 items-center justify-center rounded-full text-slate-500 hover:bg-slate-200 hover:text-slate-700"
+          (click)="removeTag(tag)"
+          aria-label="Удалить тег"
+        >
+          ×
+        </button>
+      </span>
+    }
+
+    <input
+      #inputEl
+      class="min-w-[7rem] flex-1 bg-transparent outline-none text-sm text-slate-800 placeholder:text-slate-400"
+      [placeholder]="placeholder"
+      [value]="inputValue"
+      (focus)="openDropdown()"
+      (input)="onInput($any($event.target).value)"
+      (keydown)="onKeydown($event)"
+    />
+  </div>
+
+  <div
+    class="absolute left-0 right-0 z-10 mt-2 rounded-lg border border-slate-200 bg-white shadow-lg transition-all duration-150 ease-out"
+    [class.opacity-0]="!dropdownOpen"
+    [class.translate-y-1]="!dropdownOpen"
+    [class.pointer-events-none]="!dropdownOpen"
+    [class.opacity-100]="dropdownOpen"
+    [class.translate-y-0]="dropdownOpen"
+  >
+    <div class="max-h-56 overflow-auto py-2">
+      @if (isLoading) {
+        <div class="px-3 py-2 text-xs text-slate-500">Загрузка тегов...</div>
+      } @else if (suggestions.length === 0) {
+        <div class="px-3 py-2 text-xs text-slate-500">Нет подходящих тегов.</div>
+      } @else {
+        @for (tag of suggestions; track tag) {
+          <button
+            type="button"
+            class="flex w-full items-center justify-between px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-50"
+            (click)="selectSuggestion(tag)"
+          >
+            <span>{{ tag }}</span>
+            <span class="text-xs text-slate-400">Добавить</span>
+          </button>
+        }
+      }
+    </div>
+  </div>
+</div>

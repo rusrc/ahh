@@ -31,7 +31,7 @@
 
       <label class="field">
         <span class="field-label">Теги</span>
-        <input class="input" name="tags" [(ngModel)]="form.tags" placeholder="Angular, TypeScript, REST" />
+        <app-tag-selector [(selectedTags)]="form.tags" placeholder="..." />
       </label>
 
       <div class="vacancy-actions">
